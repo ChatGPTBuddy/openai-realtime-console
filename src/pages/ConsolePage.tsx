@@ -185,7 +185,6 @@ export function ConsolePage() {
       {
         type: `input_text`,
         text: `Hello!`,
-        // text: `For testing purposes, I want you to list ten car brands. Number each item, e.g. "one (or whatever number you are one): the item name".`
       },
     ]);
 
@@ -411,6 +410,7 @@ export function ConsolePage() {
         return { ok: true };
       }
     );
+
     client.addTool(
       {
         name: 'get_weather',
@@ -500,14 +500,11 @@ export function ConsolePage() {
     };
   }, []);
 
-  /**
-   * Render the application
-   */
   return (
     <div data-component="ConsolePage">
       <div className="content-top">
         <div className="content-title">
-          <img src="/openai-logomark.svg" />
+          <img src="/openai-logomark.svg" alt="OpenAI Logo" />
           <span>realtime console</span>
         </div>
         <div className="content-api-key">
@@ -525,14 +522,6 @@ export function ConsolePage() {
       <div className="content-main">
         <div className="content-logs">
           <div className="content-block events">
-            <div className="visualization">
-              <div className="visualization-entry client">
-                <canvas ref={clientCanvasRef} />
-              </div>
-              <div className="visualization-entry server">
-                <canvas ref={serverCanvasRef} />
-              </div>
-            </div>
             <div className="content-block-title">events</div>
             <div className="content-block-body" ref={eventsScrollRef}>
               {!realtimeEvents.length && `awaiting connection...`}
@@ -553,7 +542,6 @@ export function ConsolePage() {
                       <div
                         className="event-summary"
                         onClick={() => {
-                          // toggle event details
                           const id = event.event_id;
                           const expanded = { ...expandedEvents };
                           if (expanded[id]) {
@@ -680,6 +668,14 @@ export function ConsolePage() {
               />
             )}
             <div className="spacer" />
+            <div className="visualization">
+              <div className="visualization-entry client">
+                <canvas ref={clientCanvasRef} />
+              </div>
+              <div className="visualization-entry server">
+                <canvas ref={serverCanvasRef} />
+              </div>
+            </div>
             <Button
               label={isConnected ? 'disconnect' : 'connect'}
               iconPosition={isConnected ? 'end' : 'start'}
@@ -693,7 +689,7 @@ export function ConsolePage() {
         </div>
         <div className="content-right">
           <div className="content-block map">
-            <div className="content-block-title">get_weather()</div>
+            <div className="content-block-title">get_weather() / search_places()</div>
             <div className="content-block-title bottom">
               {marker?.location || 'not yet retrieved'}
               {!!marker?.temperature && (
@@ -729,3 +725,4 @@ export function ConsolePage() {
     </div>
   );
 }
+ 
